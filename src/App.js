@@ -1,28 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+
+import { 
+  NewHomes,
+  NavBar
+} from './ui-components';
+
+
+function App({signOut, user}) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello from v2!
-        </p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NavBar width={"100vw"}/>
+    <Heading level={1}>Hello {user.username}</Heading>
+    <Button onClick={signOut}>Sign out</Button>
+    <NewHomes/>
+  </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App, {includeGreetings: true});
